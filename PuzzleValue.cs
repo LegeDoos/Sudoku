@@ -97,5 +97,27 @@ namespace Sudoku
             return possibleValues.Count(x => x) == 0;
         }
 
+        /// <summary>
+        /// Return the last possible value for the element
+        /// </summary>
+        /// <returns>the last value</returns>
+        public int LastPossibleValue()
+        {
+            if (possibleValues.Count(x => x).Equals(1))
+            {
+                // return the last value
+                for (int i = 0; i < 9; i++)
+                {
+                    if (possibleValues[i])
+                        return i + 1;
+                }
+                return -1;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +12,10 @@ namespace Sudoku
     {
         public PuzzleValue[,] values { get; set; }
 
+        private Stack<(int, int, int)> suggestions;
+        private Queue<(int, int, int)> playedValues;
+
+
         public Puzzle() 
         { 
             values = new PuzzleValue[9,9];
@@ -18,13 +24,77 @@ namespace Sudoku
                 for (int j = 0; j < 9; j++)
                     values[i, j] = new PuzzleValue();
             }
+
+            suggestions = new Stack<(int, int, int)>();
+            playedValues = new Queue<(int, int, int)>();
+            LoadPlayedValues();
+        }
+
+        private void SavePlayedValues()
+        {
+            string json = JsonConvert.SerializeObject(playedValues);
+            File.WriteAllText("playQueue.json", json);
+        }
+
+        private void LoadPlayedValues()
+        {
+            try
+            {
+                string json = File.ReadAllText("playQueue.json");
+                playedValues = JsonConvert.DeserializeObject<Queue<(int, int, int)>>(json);
+                foreach (var value in playedValues)
+                {                    
+                    this.SetValue(value.Item1, value.Item2, value.Item3, true, true);
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            finally
+            {
+                GenerateSuggestions();
+            }
+
+        }
+
+        /// <summary>
+        /// Generate a list of suggestions to play for the puzzle
+        /// </summary>
+        /// <returns></returns>
+        public bool GenerateSuggestions()
+        {
+            suggestions = new Stack<(int, int, int)>();
+
+            for (int i = 0; i < 9; i++)
+            {
+                for(int j = 0; j < 9; j++)
+                {
+                    if (values[i, j].Value == string.Empty)
+                    {
+                        int last = values[i, j].LastPossibleValue();
+                        if (last != -1)
+                        {
+                            suggestions.Push((i, j, last));
+                        }
+                    }
+                }
+            }
+            return suggestions.Count > 0;
+        }
+
+        public void PlaySuggestion()
+        {
+            while (suggestions.Count > 0)
+            {
+                var suggestion = suggestions.Pop();
+                SetValue(suggestion.Item1, suggestion.Item2, suggestion.Item3, true, true);
+            }
         }
 
         public void Print()
         {
             Console.Clear();
-
-            
             for (int i = 0; i < 9; i++)
             {
                 int y = i + 1;
@@ -54,9 +124,13 @@ namespace Sudoku
                 Console.WriteLine(lineValues);
             }
 
-            Console.WriteLine("\nRij is x, kolom is y");
+            Console.WriteLine("Suggestions:");
+            foreach (var suggestion in suggestions)
+            {
+                Console.WriteLine($"x: {suggestion.Item1+1}; y: {suggestion.Item2+1}; val: {suggestion.Item3}");
+            }
 
-            // todo options
+            Console.WriteLine("\nRij is x, kolom is y");
         }
 
         /// <summary>
@@ -66,7 +140,7 @@ namespace Sudoku
         /// <param name="y">line</param>
         /// <param name="value">The value to set</param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public void SetValue(int x, int y, int value)
+        public void SetValue(int x, int y, int value, bool skipEnqueue = false, bool skipGenerateSuggestions = false)
         {
             // checks
             if (x < 0 || x > 8 || y < 0 || y > 8)
@@ -99,6 +173,13 @@ namespace Sudoku
                 }
             }
 
+            if (!skipEnqueue)
+                playedValues.Enqueue((x, y, value));
+
+            SavePlayedValues();
+
+            if (!skipGenerateSuggestions)
+                GenerateSuggestions();
         }
     }
 }
