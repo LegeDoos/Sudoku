@@ -17,6 +17,11 @@ namespace Sudoku
         bool[] possibleValues;
 
         /// <summary>
+        /// The definite value of the element
+        /// </summary>
+        public string Value { get; private set; } = string.Empty;
+
+        /// <summary>
         /// Constructor
         /// </summary>
         public PuzzleValue()
@@ -37,7 +42,7 @@ namespace Sudoku
                 retVal = $"{retVal}{PosToVal(i)}";
             }
 
-            return retVal;
+            return retVal.PadRight(9);
         }
 
         /// <summary>
@@ -47,9 +52,50 @@ namespace Sudoku
         /// <returns>The readable value of the element</returns>
         private string PosToVal(int pos)
         {
-            return possibleValues[pos] ? $"{pos + 1}" : " ";
+            return possibleValues[pos] ? $"{pos + 1}" : "";
         }
 
+        /// <summary>
+        /// Set a value as not possible anymore for the element
+        /// </summary>
+        /// <param name="value"></param>
+        public void RemoveOption(int value)
+        {
+            possibleValues[value - 1] = false;
+            if (InvalidValue())
+                throw new InvalidValueException("No possible values left");
+        }
+
+        /// <summary>
+        /// Set the definite value for the element
+        /// </summary>
+        /// <param name="value">The definite value</param>
+        /// <exception cref="InvalidValueException">Value not possible</exception>
+        public void SetValue(int value)
+        {
+            if (possibleValues[value - 1] == false)
+                throw new InvalidValueException("Value not possible");
+
+
+            for (int i = 0; i < 9; i++)
+            {
+                if (i == value - 1)
+                    possibleValues[i] = true;
+                else
+                    possibleValues[i] = false;
+            }
+
+            Value = value.ToString();
+        }
+
+        /// <summary>
+        /// Value is invalid in case there are no possible values left
+        /// </summary>
+        /// <returns>true when invalid</returns>
+        private bool InvalidValue()
+        {
+            return possibleValues.Count(x => x) == 0;
+        }
 
     }
 }
