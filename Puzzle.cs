@@ -16,7 +16,7 @@ namespace Sudoku
         private Queue<(int, int, int)> playedValues;
 
 
-        public Puzzle() 
+        public Puzzle(bool LoadFromFile) 
         { 
             values = new PuzzleValue[9,9];
             for (int i = 0; i < 9; i++)
@@ -27,7 +27,11 @@ namespace Sudoku
 
             suggestions = new Stack<(int, int, int)>();
             playedValues = new Queue<(int, int, int)>();
-            LoadPlayedValues();
+
+            if (LoadFromFile)
+            {
+                LoadPlayedValues();
+            }
         }
 
         private void SavePlayedValues()
@@ -55,7 +59,6 @@ namespace Sudoku
             {
                 GenerateSuggestions();
             }
-
         }
 
         /// <summary>
