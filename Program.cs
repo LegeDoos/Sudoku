@@ -11,9 +11,10 @@ namespace Sudoku
             Puzzle p = new Puzzle(false);
 
             bool running = true;
+            bool showPossibleValues = true;
             while (running)
             {
-                p.Print();
+                p.Print(showPossibleValues);
                 switch (ShowMenu())
                 {
                     case 1:
@@ -28,7 +29,7 @@ namespace Sudoku
                         bool continueInput = true;
                         while (continueInput)
                         {
-                            p.Print();
+                            p.Print(showPossibleValues);
                             Console.WriteLine("Enter row (negative value to stop): ");
                             int x = int.Parse(Console.ReadLine()) - 1;
                             if (x < 0)
@@ -62,11 +63,27 @@ namespace Sudoku
 
 
                     case 4: 
-                        // play suggestions
+                        // generate play suggestions
                         while (p.GenerateSuggestions())
                         {
                             p.PlaySuggestion();
                         }
+                        break;
+                    case 5:
+                        // toggle show possible values
+                        showPossibleValues = !showPossibleValues;
+                        break;
+                    case 6:
+                        // generate suggestions
+                        p.GenerateSuggestions();
+                        break;
+                    case 7:
+                        // play suggestions
+                        p.PlaySuggestion();
+                        break;
+                    case 8:
+                        // save puzzle
+                        p.SavePlayedValues();
                         break;
                     case 9:
                         // einde
@@ -92,6 +109,10 @@ namespace Sudoku
             Console.WriteLine("2. Laatste puzzle laden");
             Console.WriteLine("3. Handmatig punten ingeven");
             Console.WriteLine("4. Suggesties spelen");
+            Console.WriteLine("5. Toggle show possible values");
+            Console.WriteLine("6. Genereer suggesties");
+            Console.WriteLine("7. Speel suggesties");
+            Console.WriteLine("8. Save puzzle (handmatig gezette waarden)");
             Console.WriteLine("9. Einde");
             Console.WriteLine();
             Console.WriteLine("Maak een keuze: ");

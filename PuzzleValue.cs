@@ -14,7 +14,7 @@ namespace Sudoku
         /// <summary>
         /// Possible values the element can have
         /// </summary>
-        bool[] possibleValues;
+        public bool[] PossibleValues { get; private set; }
 
         /// <summary>
         /// The definite value of the element
@@ -27,7 +27,7 @@ namespace Sudoku
         public PuzzleValue()
         {
             // pos 0 = 1, etc
-            possibleValues = [true, true, true, true, true, true, true, true, true];
+            PossibleValues = [true, true, true, true, true, true, true, true, true];
         }
 
         /// <summary>
@@ -37,9 +37,12 @@ namespace Sudoku
         public string ShowPossibleValues()
         {
             string retVal = string.Empty;
-            for (int i = 0;i < 9; i++)
+            if (string.IsNullOrEmpty(Value))
             {
-                retVal = $"{retVal}{PosToVal(i)}";
+                for (int i = 0; i < 9; i++)
+                {
+                    retVal = $"{retVal}{PosToVal(i)}";
+                }
             }
 
             return retVal.PadRight(9);
@@ -52,7 +55,7 @@ namespace Sudoku
         /// <returns>The readable value of the element</returns>
         private string PosToVal(int pos)
         {
-            return possibleValues[pos] ? $"{pos + 1}" : "";
+            return PossibleValues[pos] ? $"{pos + 1}" : "";
         }
 
         /// <summary>
@@ -61,7 +64,7 @@ namespace Sudoku
         /// <param name="value"></param>
         public void RemoveOption(int value)
         {
-            possibleValues[value - 1] = false;
+            PossibleValues[value - 1] = false;
             if (InvalidValue())
                 throw new InvalidValueException("No possible values left");
         }
@@ -73,16 +76,16 @@ namespace Sudoku
         /// <exception cref="InvalidValueException">Value not possible</exception>
         public void SetValue(int value)
         {
-            if (possibleValues[value - 1] == false)
+            if (PossibleValues[value - 1] == false)
                 throw new InvalidValueException("Value not possible");
 
 
             for (int i = 0; i < 9; i++)
             {
                 if (i == value - 1)
-                    possibleValues[i] = true;
+                    PossibleValues[i] = true;
                 else
-                    possibleValues[i] = false;
+                    PossibleValues[i] = false;
             }
 
             Value = value.ToString();
@@ -94,7 +97,7 @@ namespace Sudoku
         /// <returns>true when invalid</returns>
         private bool InvalidValue()
         {
-            return possibleValues.Count(x => x) == 0;
+            return PossibleValues.Count(x => x) == 0;
         }
 
         /// <summary>
@@ -103,12 +106,12 @@ namespace Sudoku
         /// <returns>the last value</returns>
         public int LastPossibleValue()
         {
-            if (possibleValues.Count(x => x).Equals(1))
+            if (PossibleValues.Count(x => x).Equals(1))
             {
                 // return the last value
                 for (int i = 0; i < 9; i++)
                 {
-                    if (possibleValues[i])
+                    if (PossibleValues[i])
                         return i + 1;
                 }
                 return -1;

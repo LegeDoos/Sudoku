@@ -34,7 +34,7 @@ namespace Sudoku
             }
         }
 
-        private void SavePlayedValues()
+        public void SavePlayedValues()
         {
             string json = JsonConvert.SerializeObject(playedValues);
             File.WriteAllText("playQueue.json", json);
@@ -55,10 +55,6 @@ namespace Sudoku
             {
 
             }
-            finally
-            {
-                GenerateSuggestions();
-            }
         }
 
         /// <summary>
@@ -69,9 +65,10 @@ namespace Sudoku
         {
             suggestions = new Stack<(int, int, int)>();
 
+            // check for each empty value if there is only one possible value left
             for (int i = 0; i < 9; i++)
             {
-                for(int j = 0; j < 9; j++)
+                for (int j = 0; j < 9; j++)
                 {
                     if (values[i, j].Value == string.Empty)
                     {
@@ -83,6 +80,83 @@ namespace Sudoku
                     }
                 }
             }
+
+            // only if there are no suggestions do the next step
+            if (suggestions.Count == 0)
+            {
+                // voor elke regel
+                for (int line = 0; line < 9; line++)
+                {
+                    // voor elke kolom
+                    for (int column = 0; column < 9; column++)
+                    {
+                        // als het element nog niet gezet is
+                        if (values[line, column].Value == string.Empty)
+                        {
+                            // check if there is a value that is only possible in this element
+                            // doorloop de waarden van 1 tot 9
+                            for (int pos = 0; pos < 9; pos++)
+                            {
+                                // indien de waarde nog mogelijk is voor dit element en zolang niets gevonden          
+                                if (values[line, column].PossibleValues[pos] == true)
+                                {
+                                    bool only = true;
+                                    // kijk in de sectie of er een ander element is waar deze waarde ook mogelijk is
+                                    int xStart = line / 3 * 3;
+                                    int yStart = column / 3 * 3;
+                                    for (int l = xStart; l < xStart + 3; l++)
+                                    {
+                                        for (int m = yStart; m < yStart + 3; m++)
+                                        {
+                                            // indien het niet de huidige positie is en de waarde nog mogelijk is in de de verifieren positie
+                                            if (only && !(l == line && m == column) && values[l, m].PossibleValues[pos])
+                                            {
+                                                only = false;
+                                            }
+                                        }
+                                    }
+                                    if (only)
+                                    {
+                                        suggestions.Push((line, column, pos + 1));
+                                    }
+
+                                    // kijk in de kolom of er een ander element is waar deze waarde ook mogelijk is
+                                    // check column
+                                    only = true;
+                                    for (int lineToCheck = 0; lineToCheck < 9; lineToCheck++)
+                                    {
+                                        if (only && lineToCheck != line && values[lineToCheck, column].PossibleValues[pos])
+                                        {
+                                            only = false;
+                                        }
+                                    }
+                                    if (only)
+                                    {
+                                        suggestions.Push((line, column, pos + 1));
+                                    }
+
+                                    // kijk in de rij of er een ander element is waar deze waarde ook mogelijk is
+                                    // check line
+                                    only = true;
+                                    for (int colToCheck = 0; colToCheck < 9; colToCheck++)
+                                    {
+                                        if (only && colToCheck != column && values[line, colToCheck].PossibleValues[pos])
+                                        {
+                                            only = false;
+                                        }
+                                    }
+                                    if (only)
+                                    {
+                                        suggestions.Push((line, column, pos + 1));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+
             return suggestions.Count > 0;
         }
 
@@ -95,7 +169,7 @@ namespace Sudoku
             }
         }
 
-        public void Print()
+        public void Print(bool showPossibleValues)
         {
             Console.Clear();
             for (int i = 0; i < 9; i++)
@@ -124,7 +198,10 @@ namespace Sudoku
                 lineValues = $"{lineValues} ";
                 Console.WriteLine("".PadLeft(lineValues.Count(), i % 3 == 0 && i != 0 ? '=' : ' '));
                 Console.WriteLine(lineSet);
-                Console.WriteLine(lineValues);
+                if (showPossibleValues)
+                {
+                    Console.WriteLine(lineValues);
+                }
             }
 
             Console.WriteLine("Suggestions:");
@@ -178,8 +255,6 @@ namespace Sudoku
 
             if (!skipEnqueue)
                 playedValues.Enqueue((x, y, value));
-
-            SavePlayedValues();
 
             if (!skipGenerateSuggestions)
                 GenerateSuggestions();
