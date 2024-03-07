@@ -15,6 +15,24 @@ namespace Sudoku
         private Stack<(int, int, int)> suggestions;
         private Queue<(int, int, int)> playedValues;
 
+        public bool IsSolved
+        {
+            get
+            {
+                for (int i = 0; i < 9; i++)
+                {
+                    for (int j = 0; j < 9; j++)
+                    {
+                        if (values[i, j].Value == string.Empty)
+                        {
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            }
+        }
+
 
         public Puzzle(bool LoadFromFile) 
         { 
@@ -154,7 +172,6 @@ namespace Sudoku
                         }
                     }
                 }
-
             }
 
             return suggestions.Count > 0;
