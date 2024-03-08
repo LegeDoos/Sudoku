@@ -86,6 +86,10 @@ namespace Sudoku
                         p.SavePlayedValues();
                         break;
                     case 9:
+                        // solve puzzle
+                        p.SolvePuzzle();
+                        break;
+                    case 10:
                         // einde
                         running = false;
                         break;
@@ -113,7 +117,8 @@ namespace Sudoku
             Console.WriteLine("6. Genereer suggesties");
             Console.WriteLine("7. Speel suggesties");
             Console.WriteLine("8. Save puzzle (handmatig gezette waarden)");
-            Console.WriteLine("9. Einde");
+            Console.WriteLine("9. Solve puzzle!");
+            Console.WriteLine("10. Einde");
             Console.WriteLine();
             Console.WriteLine("Maak een keuze: ");
 

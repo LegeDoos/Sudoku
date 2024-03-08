@@ -15,6 +15,12 @@ namespace Sudoku
         private Stack<(int, int, int)> suggestions;
         private Queue<(int, int, int)> playedValues;
 
+        /// <summary>
+        /// Shows the depth of the brute force 
+        /// </summary>
+        public int Depth { get; set; } = 0;
+
+
         public bool IsSolved
         {
             get
@@ -32,7 +38,6 @@ namespace Sudoku
                 return true;
             }
         }
-
 
         public Puzzle(bool LoadFromFile) 
         { 
@@ -74,6 +79,79 @@ namespace Sudoku
 
             }
         }
+
+        /// <summary>
+        /// Copy the puzzle
+        /// </summary>
+        /// <returns>The new puzzle</returns>
+        private Puzzle Copy()
+        {
+            Puzzle p = new Puzzle(false);
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                    p.values[i, j] = values[i, j].Copy();
+            }
+            p.Depth = Depth;
+            return p;
+        }
+
+        /// <summary>
+        /// Automatically solve the puzzle
+        /// </summary>
+        /// <returns>true on success</returns>
+        public bool SolvePuzzle()
+        {
+            while (GenerateSuggestions())
+            {
+                PlaySuggestion();
+            }
+            if (!IsSolved)
+            {
+                // create list of count of possible values for each element
+                List<(int, int, int)> possibleValuesCount = new List<(int, int, int)>();
+                for (int i = 0; i < 9; i++)
+                {
+                    for (int j = 0; j < 9; j++)
+                    {
+                        if (values[i, j].PossibleValues.Count(x => x) > 1)
+                        {
+                            // todo voeg opties toe niet count
+                            possibleValuesCount.Add((i, j, values[i, j].PossibleValues.Count(x => x)));
+                        }
+                    }
+                }
+
+                // probeer slechts de opties van 1 punt, dat zou de oplossing moeten zijn
+                var val = possibleValuesCount.OrderBy(x => x.Item3).ThenBy(y => y.Item1).ThenBy(z => z.Item2).First();
+                var possibleValues = values[val.Item1, val.Item2].ShowPossibleValues().Replace(" ", "");
+
+                bool subSolved = false;
+                int index = 0;
+                while (!subSolved && index < possibleValues.Count())
+                {
+                    Puzzle subPuzzle = Copy();
+                    subPuzzle.Depth += 1;
+                    subPuzzle.SetValue(val.Item1, val.Item2, int.Parse(possibleValues[index].ToString()), true, true);
+                    try
+                    {
+                        if (subPuzzle.SolvePuzzle())
+                        {
+                            this.values = subPuzzle.values;
+                            this.Depth = subPuzzle.Depth;
+                            subSolved = true;
+                        }
+
+                    }
+                    catch (Exception)
+                    {
+                        index++;
+                    }
+                }
+            }
+            return IsSolved;
+        }
+
 
         /// <summary>
         /// Generate a list of suggestions to play for the puzzle

@@ -31,6 +31,21 @@ namespace Sudoku
         }
 
         /// <summary>
+        /// Copy the puzzle value
+        /// </summary>
+        /// <returns>The copied value</returns>
+        public PuzzleValue Copy()
+        {
+            PuzzleValue retVal = new PuzzleValue();
+            for (int i = 0; i < 9; i++)
+            {
+                retVal.PossibleValues[i] = PossibleValues[i];
+            }
+            retVal.Value = Value;
+            return retVal;
+        }
+
+        /// <summary>
         /// Format a string with the possible values for the element
         /// </summary>
         /// <returns></returns>
