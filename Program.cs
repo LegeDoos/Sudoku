@@ -87,7 +87,10 @@ namespace Sudoku
                         break;
                     case 9:
                         // solve puzzle
+                        int tickStart = Environment.TickCount;
                         p.SolvePuzzle();
+                        Console.WriteLine($"Puzzle solved in {Environment.TickCount - tickStart} ms with a depth of {p.Depth}");
+                        Console.ReadLine();
                         break;
                     case 10:
                         // einde

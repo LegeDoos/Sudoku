@@ -215,7 +215,7 @@ namespace Sudoku
                                     {
                                         suggestions.Push((line, column, pos + 1));
                                     }
-
+           
                                     // kijk in de kolom of er een ander element is waar deze waarde ook mogelijk is
                                     // check column
                                     only = true;
@@ -230,7 +230,7 @@ namespace Sudoku
                                     {
                                         suggestions.Push((line, column, pos + 1));
                                     }
-
+           
                                     // kijk in de rij of er een ander element is waar deze waarde ook mogelijk is
                                     // check line
                                     only = true;
@@ -251,7 +251,6 @@ namespace Sudoku
                     }
                 }
             }
-
             return suggestions.Count > 0;
         }
 
