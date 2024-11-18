@@ -36,7 +36,7 @@ namespace SudokuSolver
         /// <returns>The copied value</returns>
         public PuzzleValue Copy()
         {
-            PuzzleValue retVal = new PuzzleValue();
+            PuzzleValue retVal = new();
             for (int i = 0; i < 9; i++)
             {
                 retVal.PossibleValues[i] = PossibleValues[i];
@@ -112,7 +112,7 @@ namespace SudokuSolver
         /// <returns>true when invalid</returns>
         private bool InvalidValue()
         {
-            return PossibleValues.Count(x => x) == 0;
+            return !PossibleValues.Any(x => x);
         }
 
         /// <summary>
