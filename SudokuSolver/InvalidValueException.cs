@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sudoku
+namespace SudokuSolver
 {
     /// <summary>
     /// Exception when there is an error in one of the values of the puzzle
