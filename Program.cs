@@ -4,11 +4,11 @@ namespace Sudoku
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Console.WriteLine("Sudoku solver!");
 
-            Puzzle p = new Puzzle(false);
+            Puzzle p = new(false);
 
             bool running = true;
             bool showPossibleValues = true;
@@ -31,7 +31,7 @@ namespace Sudoku
                         {
                             p.Print(showPossibleValues);
                             Console.WriteLine("Enter row (negative value to stop): ");
-                            int x = int.Parse(Console.ReadLine()) - 1;
+                            int x = GetIntInputFromUser() - 1;
                             if (x < 0)
                             {
                                 continueInput = false;
@@ -39,9 +39,9 @@ namespace Sudoku
                             else
                             {
                                 Console.WriteLine("Enter column: ");
-                                int y = int.Parse(Console.ReadLine()) - 1;
+                                int y = GetIntInputFromUser() - 1;
                                 Console.WriteLine("Enter value: ");
-                                int value = int.Parse(Console.ReadLine());
+                                int value = GetIntInputFromUser();
                                 bool go = true;
                                 if (value < 1 || value > 9)
                                 {
@@ -104,6 +104,27 @@ namespace Sudoku
             }
         }
 
+        private static int GetIntInputFromUser()
+        {
+            bool inValidValue = true;
+            while (inValidValue)
+            {
+                try
+                {
+                    string? val = Console.ReadLine();
+                    if (val != null)
+                    {
+                        return int.Parse(val);
+                    }
+                }
+                catch (Exception)
+                {
+                    inValidValue = false;
+                }
+            }
+            return 0; // Default return value in case of invalid input
+        }
+
 
         /// <summary>
         /// Console menu
@@ -125,14 +146,7 @@ namespace Sudoku
             Console.WriteLine();
             Console.WriteLine("Maak een keuze: ");
 
-            try 
-            {
-                return int.Parse(Console.ReadLine());
-            }
-            catch (Exception e)
-            {
-                return ShowMenu();
-            }            
+            return GetIntInputFromUser();
         }
     }
 }
