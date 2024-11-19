@@ -43,3 +43,9 @@ Opdrachtgever is eigenaar van alle requirements.
 - Applicatie loopt op zijn minst op Android
 - Regels van standaard Sudoku zijn van toepassing
 - Wetgeving wordt gerespecteerd
+
+# Usecase diagram
+
+Hieronder het usecase diagram waarin al bovenstaande requirements zouden moeten kunnen worden ondergebracht.
+
+![Usecase diagram](UseCaseDiagram.jpg)
