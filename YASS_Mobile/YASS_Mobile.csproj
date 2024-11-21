@@ -20,7 +20,7 @@
 		<Nullable>enable</Nullable>
 
 		<!-- Display name -->
-		<ApplicationTitle>YASS_Mobile</ApplicationTitle>
+		<ApplicationTitle>YASS - Yet Another Sudoku Solver</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.legedoos.yass_mobile</ApplicationId>
@@ -40,10 +40,10 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\yass_icon.svg" BaseSize="50,50" />
+		<MauiIcon Include="Resources\AppIcon\yass_icon.svg" ForegroundScale="0.65"/>
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#feb236" BaseSize="256,256" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#feb236" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
