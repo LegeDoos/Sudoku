@@ -85,3 +85,16 @@ De solution YASS.sln bevat twee projecten:
 - YASS_Mobile: MAUI mobile app
 
 Alle projecten in .NET 8
+
+# Design
+
+Gebruik het volgende kleuren pallet:
+
+| Code         | Doel                   |
+| :----------- | :--------------------- |
+| HEX: #6b5b95 | Text (ook logo)        |
+| HEX: #feb236 | Achtergrond (ook logo) |
+| HEX: #d64161 |                        |
+| HEX: #ff7b25 |                        |
+
+![Colours](color_pallette.jpg)
