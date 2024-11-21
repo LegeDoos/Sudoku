@@ -27,16 +27,16 @@ Opdrachtgever is eigenaar van alle requirements.
 | F11 | De gebruiker bekijkt een lijst van eerder opgeloste puzzels                                         | 35   |
 | F12 | De gebruiker bekijkt een opgeloste puzzel uit de lijst opgeloste puzzels                            | 30   |
 | F13 | De gebruiker start een puzzle het het maken van een foto van een fysieke Sudoku puzzle (OCR)        | 25   |
-| F14 | De gebruiker start een gegenereerde puzzel op basis van een geselecteerde moeilijkheidsgraag (API?) | 20   |
+| F14 | De gebruiker start een gegenereerde puzzel op basis van een geselecteerde moeilijkheidsgraad (API?) | 20   |
 
 ## Niet functionele requirements
 
 | Id  | Beschrijving                                                                                                              |
 | :-- | :------------------------------------------------------------------------------------------------------------------------ |
-| 1   | Fouten van de gebruiker worden opgevangen en correct afgehandeld zodat de applicatie niet crashed (User error protection) |
-| 2   | Het systeem kan gebruikt worden zonder handleiding (Operability)                                                          |
-| 3   | Persoonlijk opgeslagen gegevens zijn niet toegankelijk voor derden (Confidentiality)                                      |
-| 4   | De applicatie is installeerbaar via een appstore (Installability)                                                         |
+| NF1 | Fouten van de gebruiker worden opgevangen en correct afgehandeld zodat de applicatie niet crashed (User error protection) |
+| NF2 | Het systeem kan gebruikt worden zonder handleiding (Operability)                                                          |
+| NF3 | Persoonlijk opgeslagen gegevens zijn niet toegankelijk voor derden (Confidentiality)                                      |
+| NF4 | De applicatie is installeerbaar via een appstore (Installability)                                                         |
 
 ## Randvoorwaarden
 
@@ -55,6 +55,27 @@ Hieronder het usecase diagram waarin al bovenstaande requirements zouden moeten 
 ![Usecase diagram](UseCaseDiagram.jpg)
 
 ## Wireframes
+
+Het doel van de wireframes is inzichtelijk maken wat er op de schermen staat binnen de applicatie en hoe er genavigeerd wordt tussen deze schermen. Hieronder per scherm een toelichting.
+
+### Overview
+
+![Alle wireframes in overzicht](00_Wireframes.jpg)
+
+| Wireframe                                                              | Titel             | Beschrijving                                                                                                                                                                                                                                                     | Requirements                  |
+| :--------------------------------------------------------------------- | :---------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------- |
+| <img src="01_Home.jpg" width="450" alt="Home">                         | Home              | Startscherm van de applicatie. Vanuit hier is het hoofdmenu beschikbaar. Knop "Puzzle History" is alleen beschikbaar indien ingelogd.                                                                                                                            | F1, F11                       |
+| <img src="02_Puzzle.jpg" width="450" alt="Puzzle">                     | Puzzle            | Scherm met edit weergave van een puzzle. Vanuit hier kan een gebruiker een cel in de puzzle aanlikken om de waarde in te vullen. Tevens kunnen suggesties getoond worden. Achter elke suggestie staat een apply knop zodat deze suggestie uitgevoerd kan worden. | F1, F2, F3a, F5, F6, F7a, F7b |
+| <img src="03_Value.jpg" width="450" alt="Value">                       | Value             | Gebruiker vult de waarde van een geselecteerde cel in. Tevens worden de nog mogelijke waarden getoond. Alleen geldende waarden mogen worden ingevuld.                                                                                                            | F3a, F3b (kan niet), F4       |
+| <img src="04_Overview.jpg" width="450" alt="Puzzle overview">          | Puzzle overview   | Scherm wordt getoond als de puzzle is opgelost of niet oplosbaar is. Eindresultaat wordt getoond. Statistieken worden getoond. Puzzle kan worden opgeslagen indien de gebruiker is ingelogd.                                                                     | F9a, F9b, F10, F12            |
+| <img src="05_PuzzleFromPhoto.jpg" width="450" alt="Puzzle from photo"> | Puzzle from photo | Enige functie is het maken van een foto. Middels OCR wordt deze omgezet in een puzzle voor scherm 2.                                                                                                                                                             | F13                           |
+| <img src="06_PuzzleHistory.jpg" width="450" alt="Puzzle history">      | Puzzle history    | Lijst van opgeslagen puzzels voor het account. Na kiezen van puzzle wordt "Puzzle overview" gebruikt om de puzzle te tonen.                                                                                                                                      | F11                           |
+| <img src="07_Account.jpg" width="450" alt="Account">                   | Account           | Gebruiker kan inloggen of een account maken.                                                                                                                                                                                                                     | NF3                           |
+
+Buiten beschouwing in het ontwerp op dit moment:
+
+- F8
+- F14
 
 # Project opbouw
 
