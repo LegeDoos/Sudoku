@@ -43,7 +43,7 @@
 		<MauiIcon Include="Resources\AppIcon\yass_icon.svg" ForegroundScale="0.65"/>
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#feb236" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#feb236" BaseSize="300,300" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
