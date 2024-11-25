@@ -50,12 +50,6 @@ Opdrachtgever is eigenaar van alle requirements.
 
 # Ontwerp
 
-## Usecase diagram
-
-Hieronder het usecase diagram waarin al bovenstaande requirements zouden moeten kunnen worden ondergebracht.
-
-![Usecase diagram](UseCaseDiagram.jpg)
-
 ## Wireframes
 
 Het doel van de wireframes is inzichtelijk maken wat er op de schermen staat binnen de applicatie en hoe er genavigeerd wordt tussen deze schermen. Hieronder per scherm een toelichting.
@@ -78,6 +72,12 @@ Buiten beschouwing in het ontwerp op dit moment:
 
 - F8
 - F14
+
+## Usecase diagram
+
+Hieronder het usecase diagram waarin al bovenstaande requirements zouden moeten kunnen worden ondergebracht.
+
+![Usecase diagram](UseCaseDiagram.jpg)
 
 # Project opbouw
 
