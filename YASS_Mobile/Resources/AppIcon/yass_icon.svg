@@ -1,0 +1,43 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Define gradients -->
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:rgb(255,255,0);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgb(255,0,0);stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:rgb(0,255,255);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgb(0,0,255);stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="#feb236"/>
+  <!-- Sudoku grid -->
+  <g transform="translate(10, 10)">
+    <!-- Grid background -->
+    <rect width="180" height="180" fill="#fff" stroke="#000"/>
+    <!-- Vertical lines -->
+    <line x1="60" y1="0" x2="60" y2="180" stroke="#000"/>
+    <line x1="120" y1="0" x2="120" y2="180" stroke="#000"/>
+    <!-- Horizontal lines -->
+    <line x1="0" y1="60" x2="180" y2="60" stroke="#000"/>
+    <line x1="0" y1="120" x2="180" y2="120" stroke="#000"/>
+    <!-- Bold lines for 3x3 subgrids -->
+    <line x1="0" y1="0" x2="180" y2="0" stroke="#000" stroke-width="2"/>
+    <line x1="0" y1="180" x2="180" y2="180" stroke="#000" stroke-width="2"/>
+    <line x1="0" y1="0" x2="0" y2="180" stroke="#000" stroke-width="2"/>
+    <line x1="180" y1="0" x2="180" y2="180" stroke="#000" stroke-width="2"/>
+    <!-- Letters Y A S S in different rectangles -->
+    <text x="26.66" y="40" font-family="Courier New" font-size="30" font-weight="bold" fill="#6b5b95">
+      Y
+    </text>
+    <text x="80" y="40" font-family="Courier New" font-size="30" font-weight="bold" fill="#6b5b95">
+      A
+    </text>
+    <text x="26.66" y="100" font-family="Courier New" font-size="30" font-weight="bold" fill="#6b5b95">
+      S
+    </text>
+    <text x="80" y="100" font-family="Courier New" font-size="30" font-weight="bold" fill="#6b5b95">
+      S
+    </text>
+  </g>
+</svg>
