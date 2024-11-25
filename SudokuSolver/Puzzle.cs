@@ -97,12 +97,16 @@ namespace SudokuSolver
         {
             try
             {
-                string json = File.ReadAllText("playQueue.json");
-                playedValues = JsonConvert.DeserializeObject<Queue<(int, int, int)>>(json);
-                foreach (var value in playedValues)
-                {                    
-                    this.SetValue(value.Item1, value.Item2, value.Item3, true, true);
-                }
+                string? json = File.ReadAllText("playQueue.json");
+                if (!String.IsNullOrEmpty(json))
+                    if (!String.IsNullOrEmpty(json))
+                    {
+                        playedValues = JsonConvert.DeserializeObject<Queue<(int, int, int)>>(json) ?? new Queue<(int, int, int)>();
+                        foreach (var value in playedValues)
+                        {
+                            this.SetValue(value.Item1, value.Item2, value.Item3, true, true);
+                        }
+                    }                
             }
             catch (Exception)
             {
