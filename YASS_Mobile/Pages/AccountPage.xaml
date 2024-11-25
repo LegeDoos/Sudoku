@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="YASS_Mobile.Pages.AccountPage"
+             Title="AccountPage">
+
+    <StackLayout
+        Margin="20">
+
+            <Frame>
+                <Label Text="Login"/>
+            </Frame>
+
+        <StackLayout
+            Spacing="25"
+            Padding="30"
+            VerticalOptions="CenterAndExpand">
+
+            <Label
+                Text="Gebruikersnaam:"
+                HorizontalOptions="Center"/>
+            <Entry
+                x:Name="UsernameEntry"
+                Placeholder="Je gebruikersnaam hier"
+                HorizontalOptions="Center"/>
+
+            <Label
+                Text="Wachtwoord:"
+                HorizontalOptions="Center"/>
+            <Entry
+                x:Name="PasswordEntry"
+                Placeholder="Je wachtwoord hier"
+                HorizontalOptions="Center"
+                IsPassword="True"/>
+
+            <Button
+                Text="Login"
+                x:Name="LoginBtn"
+                Clicked="LoginBtn_Clicked"/>
+            
+        </StackLayout>
+
+
+    </StackLayout>
+
+</ContentPage>
