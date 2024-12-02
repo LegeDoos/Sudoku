@@ -20,6 +20,12 @@
 
             SemanticScreenReader.Announce(CounterBtn.Text);
         }
+
+        private async void TestPageBtn_Clicked(object sender, EventArgs e)
+        {
+            Page page = new ContentPageOne();
+            await Navigation.PushAsync(page);
+        }
     }
 
 }
