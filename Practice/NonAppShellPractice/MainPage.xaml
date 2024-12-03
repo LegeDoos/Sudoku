@@ -36,6 +36,12 @@
                 Text="Open page"
                 Clicked="OpenPageBtn_Clicked"
                 HorizontalOptions="Fill" />
+
+            <Button
+                x:Name="OpenPageTwoBtn"
+                Text="Open page"
+                Clicked="OpenPageTwoBtn_Clicked"
+                HorizontalOptions="Fill" />
             
         </VerticalStackLayout>
     </ScrollView>

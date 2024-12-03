@@ -27,6 +27,12 @@
             await Navigation.PushAsync(page);
 
         }
+
+        private async void OpenPageTwoBtn_Clicked(object sender, EventArgs e)
+        {
+            var page = new ContentPageTwo();
+            await Navigation.PushAsync(page);
+        }
     }
 
 }
