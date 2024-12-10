@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using SQLiteEF.Database;
 
 namespace SQLiteEF
 {
@@ -7,6 +10,10 @@ namespace SQLiteEF
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
+
+            builder.Services.AddDbContext<TestDbContext>(options =>
+            options.UseSqlite(builder.Configuration.GetConnectionString("Data Source=moistdb.db")));
+
             builder
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>
